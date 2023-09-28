@@ -48,7 +48,7 @@
                 currentStartPointer = fasta.indexOf(">", firstStartPointer + 1);
                 let sequence = fasta.slice(endPointer + 1, currentStartPointer);
                 //removing new line characters inside seq1
-                sequence = sequence.replace(/\s/g, "");
+                //sequence = sequence.replace(/\s/g, "");
 
                 this.processedSequences.push(sequence);
                 //Protein Name-Identifier
