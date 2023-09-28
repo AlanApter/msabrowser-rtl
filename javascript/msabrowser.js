@@ -468,7 +468,7 @@
         for (var sequenceIndex = startY; sequenceIndex < endY; sequenceIndex++) {
             seq1 = processedSequences[sequenceIndex];
             var documentFragment = document.createDocumentFragment();
-            for (var positionIndex = startX; positionIndex < endX; positionIndex++) {
+            for (var positionIndex = startX -1; positionIndex < endX; positionIndex++) {
 
                 if (loadedPositions[sequenceIndex][positionIndex]) {
                     continue;
@@ -500,6 +500,7 @@
 
 
                 aaBox.innerHTML = aaLetter;
+				
                 aaBox.style.cssText = 'right:' + (positionIndex * 20) + 'px;';
 
                 // Color schema for amino acids
