@@ -188,7 +188,8 @@
 
         function loadProteins(msa) {
             var ids = that.ids;
-            var sequenceLengthforDomain = "width:" + msa.processedSequences[0].length * 20 + "px;";
+			msa_width = msa.processedSequences[0].length * 20 + 180
+            var sequenceLengthforDomain = "width:" + msa_width + "px;";
             document.getElementById(ids.annotationSequence).style = sequenceLengthforDomain;
 
             for (var i in msa.sequenceDetails) {
@@ -499,7 +500,7 @@
 
 
                 aaBox.innerHTML = aaLetter;
-                aaBox.style.cssText = 'left:' + (positionIndex * 20) + 'px;';
+                aaBox.style.cssText = 'right:' + (positionIndex * 20) + 'px;';
 
                 // Color schema for amino acids
 
