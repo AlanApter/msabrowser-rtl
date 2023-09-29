@@ -18,6 +18,30 @@
 	}
 	</style>
 	
+<script>
+  $(document).ready(function() {
+		
+		count = 0;
+		
+		$(document).bind('keyup', function keyPressHandler(e) {
+			input = e.key;
+			if (input != 'Enter' && input != 'Backspace'){
+				$("#EditableLine .i-" + count).text(input);
+			}
+		
+			
+			if (input == 'Backspace') {
+				count--;
+			} else {
+				count++;
+			}
+			
+			console.log(count);
+		});
+	});
+</script>
+
+
 	
 </head>
 

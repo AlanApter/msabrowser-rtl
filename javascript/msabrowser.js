@@ -75,7 +75,35 @@
 
         // Time To Run
         loadSeq(fasta);
+        this.addEditableLine = function() {
+            let consensus_logo = "";
+            var aaCount = this.processedSequences[0].length;
+            for (let positionIndex = 0; positionIndex < aaCount; positionIndex++) {
+                var position_dict = {};
+                for (let sequenceIndex = 0; sequenceIndex < this.processedSequences.length; sequenceIndex++) {
+                    var sequence = this.processedSequences[sequenceIndex];
+                    var aminoacid = sequence[positionIndex];
+                    position_dict[aminoacid] = positionIndex;
+                }
+                if (Object.keys(position_dict).length == 1) {
+                    consensus_logo = consensus_logo.concat(aminoacid);
+                } else if (Object.keys(position_dict).length == this.processedSequences.length / 2) {
+                    consensus_logo = consensus_logo.concat(':');
+                } else if (Object.keys(position_dict).length == this.processedSequences.length) {
+                    consensus_logo = consensus_logo.concat('-');
+                } else {
+                    consensus_logo = consensus_logo.concat('.');
+                }
+            }
+            this.sequenceDetails.push({
+                link: '#',
+                species: 'Editable Line',
+                sequenceId: 'EditableLine'                
+            });
+            this.processedSequences.push(consensus_logo);
 
+        }
+		
         this.addConsensus = function() {
             let consensus_logo = "";
             var aaCount = this.processedSequences[0].length;
@@ -109,7 +137,7 @@
         if (hasConsensus) {
             this.addConsensus();
         }
-
+		this.addEditableLine();
         return this;
     };
 
@@ -266,6 +294,7 @@
 
             return offsetX;
         }
+		
 
         this.showAlteration = function(prNumber, aaNumber) {
 
