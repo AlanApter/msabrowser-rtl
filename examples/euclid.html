@@ -19,26 +19,60 @@
 	</style>
 	
 <script>
-  $(document).ready(function() {
-		
-		count = 0;
-		
+  $(document).ready(function() {		
+		count = 0;		
+		$("#EditableLine .i-0").addClass('specialAa');
+
 		$(document).bind('keyup', function keyPressHandler(e) {
 			input = e.key;
+			
 			if (input != 'Enter' && input != 'Backspace'){
 				$("#EditableLine .i-" + count).text(input);
-			}
-		
-			
+			}		
+			$("#EditableLine .i-" + count).removeClass('specialAa');
 			if (input == 'Backspace') {
 				count--;
 			} else {
 				count++;
 			}
+			$("#EditableLine .i-" + count).addClass('specialAa');
 			
-			console.log(count);
 		});
 	});
+	$(document).keydown(function(e) {
+		// Check for Ctrl + S or Cmd + S (for Mac)
+		if ((e.ctrlKey || e.metaKey) && e.which == 83) {
+			e.preventDefault();
+			
+			// Your custom logic here
+			saveContentAsFile();
+			return false;
+		}
+	});
+	
+function saveContentAsFile() {
+    // Get the EditableLine element
+    const editableLine = document.getElementById('EditableLine');
+
+    // Extract content from each child div
+    let content = '';
+    for (let child of editableLine.children) {
+        content += child.textContent;
+    }
+
+    // Create a blob from the content
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+
+    // Create an anchor element to trigger the download
+    const a = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    a.href = url;
+    a.download = 'content.txt'; // You can change the filename here
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}	
 </script>
 
 
@@ -47,6 +81,7 @@
 
 <body>
     <h1>MSABrowser | Template</h1>
+
     <article>
         <br> For example, you can view a particular <a href="javascript:void(0)" onclick="viewer.scrollToPosition(1,5)"> variation on a species</a> or by clicking the link.
     </article>
@@ -99,6 +134,9 @@
 
         });
     </script>
+	
+	<button onclick="saveContentAsFile()">Save Content</button>
+	
 </body>
 
 </html>
